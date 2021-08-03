@@ -28,7 +28,7 @@ jobs:
 
       - name: Install packages
         run: |
-          yarn install --pure-lockfile
+          yarn install
 
       - name: Cypress run
         uses: cypress-io/github-action@v2.3.8
