@@ -1,0 +1,41 @@
+name: Cluster 8
+on: [push]
+jobs:
+  cypress-run:
+    name: Cypress run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.13.0
+
+      - name: Find yarn cache location
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: JS package cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install packages
+        run: |
+          yarn install
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2.3.8
+        with:
+          # env: host=localhost,port=3000
+          # start: bundle exec rails s -p 3000 -b 0.0.0.0
+          # wait-on: 'http://localhost:3000'
+          # record: true
+          project: ./
+          browser: chrome
