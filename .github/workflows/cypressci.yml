@@ -4,9 +4,6 @@ jobs:
   cypress-run:
     name: Cypress run
     runs-on: ubuntu-16.04
-
-    services:
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
