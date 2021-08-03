@@ -1,4 +1,4 @@
-name: Cluster 1
+name: Cluster 5
 on: [push]
 jobs:
   cypress-run:
